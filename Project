@@ -1,0 +1,40 @@
+pipeline {
+    agent any
+    environment {
+        name= 'shadab'
+    }
+    parameters {
+        string(name: 'person', defaultValue: 'Shadab Khan', description: "'Who are You")
+    }
+    
+    stages {
+        stage('Run A Command') {
+            steps {
+                sh '''
+                pwd
+                ls
+                cal 
+                date
+                '''
+            }
+        }
+        stage('Environment Varible') {
+            steps {
+                sh 'echo "${BUILD_ID}"'
+                sh 'echo "${name}"'
+                sh 'echo "${person}"'
+            }
+        }
+        stage('Parameter') {
+            steps {
+                echo 'Deploy on Test'
+                sh 'echo "${name}"'
+            }
+        }
+        stage('Deploy on Prod') {
+            steps {
+                echo 'Depoly on Prod'
+            }
+        }
+    }
+}
